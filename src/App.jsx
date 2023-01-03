@@ -1,13 +1,23 @@
 
 import { Container } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Search from './components/Search/Search'
+import getUserGH from './service/user'
 
 function App() {
-
-  const [userState, setUserState] = useState('octocat');
-  const [inputUser, setInputUser] = useState(userState);
+  const [inputUser, setInputUser] = useState('octocat');
+  const [userState, setUserState] = useState('inputUser');
+ 
   // console.log('despues del click', inputUser)
+
+  const getUser = async (user) => {
+    const userResponse = await getUserGH(user)
+    console.log(userResponse);
+  }
+
+  useEffect(()=>{
+    getUser(inputUser)
+  }, [])
 
 
   return (
